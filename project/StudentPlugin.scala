@@ -1,16 +1,16 @@
 package ch.epfl.lamp
 
-import sbt._
-import Keys._
 import java.io.{File, FileInputStream, IOException}
 
+import ch.epfl.lamp.MOOCPlugin.autoImport._
 import ch.epfl.lamp.grading.StyleChecker
 import org.apache.commons.codec.binary.Base64
-
+import play.api.libs.json.{JsObject, JsPath, Json}
+import sbt.Keys._
+import sbt.{Def, _}
 import scalaj.http._
+
 import scala.util.{Failure, Success, Try}
-import MOOCPlugin.autoImport._
-import play.api.libs.json.{Json, JsObject, JsPath}
 
 case class AssignmentInfo(
   key: String,
@@ -30,7 +30,7 @@ object StudentPlugin extends AutoPlugin {
   }
   import autoImport._
 
-  override lazy val projectSettings = Seq(
+  override lazy val projectSettings: Seq[Def.Setting[_]] = Seq(
     submitSetting,
     packageSubmissionSetting,
     commonSourcePackages := Seq(), // see build.sbt
@@ -46,7 +46,7 @@ object StudentPlugin extends AutoPlugin {
 
   val packageSubmissionZip = TaskKey[File]("packageSubmissionZip")
 
-  val packageSubmissionZipSettings = Seq(
+  val packageSubmissionZipSettings: Seq[Def.Setting[_]] = Seq(
     packageSubmissionZip := {
       val submission = crossTarget.value / "submission.zip"
       val sources = (packageSourcesOnly in Compile).value
@@ -63,7 +63,7 @@ object StudentPlugin extends AutoPlugin {
     artifactClassifier in packageSourcesOnly := Some("sources")
   ) ++ inConfig(Compile)(Defaults.packageTaskSettings(packageSourcesOnly, Defaults.sourceMappings))
 
-  val maxSubmitFileSize = {
+  val maxSubmitFileSize: Int = {
     val mb = 1024 * 1024
     10 * mb
   }

@@ -1,8 +1,9 @@
 package ch.epfl.lamp.grading
 
-import java.io.{ByteArrayOutputStream, PrintStream, File}
-import org.scalastyle._
+import java.io.{ByteArrayOutputStream, File, PrintStream}
+
 import com.typesafe.config.ConfigFactory
+import org.scalastyle._
 
 object StyleChecker {
   val maxResult = 100
@@ -42,7 +43,7 @@ object StyleChecker {
     }
   }
 
-  def score(outputResult: OutputResult) = {
+  def score(outputResult: OutputResult): Int = {
     val penalties = outputResult.errors + outputResult.warnings
     scala.math.max(maxResult - penalties, 0)
   }

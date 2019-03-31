@@ -31,8 +31,7 @@ libraryDependencies ++= Seq(
   // Used by protocols assignment
   "org.fusesource.leveldbjni" % "leveldbjni-all"           % "1.8",
   "com.github.romix.akka"    %% "akka-kryo-serialization"  % "0.5.0",
-
-
+  
   // Test resources
   "org.slf4j"                 % "slf4j-api"                % "1.7.25"    % Test,
   "ch.qos.logback"            % "logback-classic"          % "1.2.3"     % Test,

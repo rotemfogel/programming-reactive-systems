@@ -1,6 +1,6 @@
 lazy val commonSettings = Seq(
   organization := "me.rotemfo",
-  scalaVersion := "2.11.8",
+  scalaVersion := "2.11.12",
   publishMavenStyle := true,
   scalacOptions := Seq(
     "-deprecation",
@@ -44,9 +44,12 @@ lazy val async = project.in(file("async"))
 lazy val actorbintree = project.in(file("actorbintree"))
   .settings(commonSettings: _*)
 
+lazy val kvstore = project.in(file("kvstore"))
+  .settings(commonSettings: _*)
+
 lazy val root = project.in(file("."))
   .settings(commonSettings: _*)
   .settings(name := "programming-reactive-systems", publishArtifact := false, publish := {}, publishLocal := {})
-  .aggregate(example, async, actorbintree)
+  .aggregate(example, async, actorbintree, kvstore)
 
 updateOptions := updateOptions.value.withLatestSnapshots(false)
